@@ -1,10 +1,11 @@
 package HashTable;
 
+import java.lang.reflect.Array;
 import java.util.LinkedList;
 
 public class HashTable {
-    private class Entry {
-        private int key;
+    private static class Entry {
+        private final int key;
         private String value;
 
         public Entry(int key, String value) {
@@ -14,10 +15,11 @@ public class HashTable {
 
     }
 
-    private LinkedList<Entry>[] items;
+    private final LinkedList<Entry>[] items;
 
+    @SuppressWarnings("unchecked")
     public HashTable(int size) {
-        this.items = new LinkedList[size];
+        this.items = (LinkedList<Entry>[]) Array.newInstance(LinkedList.class, size);
     }
 
     public void put(int key, String value) {
@@ -44,7 +46,9 @@ public class HashTable {
     private LinkedList<Entry> getOrCreateBucket(int key) {
         var index = hash(key);
         var bucket = items[index];
-        if (bucket == null) items[index] = new LinkedList<>();
+        if (bucket == null) {
+            bucket = items[index] = new LinkedList<>();
+        }
 
         return bucket;
     }
@@ -65,5 +69,23 @@ public class HashTable {
 
     private int hash(int key) {
         return key % items.length;
+    }
+
+    /**
+      Returns a brief description of this hashtable. The exact details
+      of the representation are unspecified and subject to change,
+      but the following may be regarded as typical:
+
+      "{5=abc}{6=def}{2=ghi}"
+     */
+   @Override public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (LinkedList<Entry> entry : items) {
+            for (var item : entry) {
+                str.append(String.format("{%s=%s}", item.key, item.value));
+            }
+        }
+
+        return str.toString();
     }
 }
