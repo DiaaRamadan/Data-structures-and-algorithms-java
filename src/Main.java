@@ -1,20 +1,20 @@
-import HashTable.HashTable;
-import algorithms.BinarySearch;
-import algorithms.SortingAlgorithm;
-import com.arrays.Array;
-
-import java.util.Arrays;
+import Graph.Graph;
 
 public class Main {
     public static void main(String[] args) {
 
-        var arr = new int[]{4, 8, 7, 2, 0, 4, 5};
+        var graph = new Graph();
 
-        SortingAlgorithm.quicksort(arr);
+        graph.addNode("A");
+        graph.addNode("B");
+        graph.addNode("C");
+        graph.addNode("D");
+        graph.addEdge("A", "B");
+        graph.addEdge("B", "D");
+        graph.addEdge("D", "C");
+        graph.addEdge("A", "C");
 
-        System.out.println(Arrays.toString(arr));
+        graph.traverseBreadthFirst("A");
 
     }
-
-
 }
