@@ -7,7 +7,7 @@ public class BinarySearch {
     private List<Integer> items;
 
     public BinarySearch(List<Integer> items) {
-        if (items.size() == 0) throw new IllegalArgumentException("List size is ZERO");
+        if (items.isEmpty()) throw new IllegalArgumentException("List size is ZERO");
         this.items = items;
     }
 
